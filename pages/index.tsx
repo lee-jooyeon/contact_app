@@ -4,7 +4,7 @@ import { Box } from '../components/Atoms';
 const Home: NextPage = () => {
   return (
     <>
-      <Box>안녕</Box>
+      <Box>지성아 안녕</Box>
     </>
   );
 };
