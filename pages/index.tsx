@@ -9,20 +9,7 @@ import theme from '../styles/theme';
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const moving = keyframes`
-    0 {
-      -webkit-transform: scale(0);
-      transform: scale(0);  
-    }
-    50% {
-      -webkit-transform: scale(0.5);
-      transform: scale(0.5);
-    }
-    100% {
-      -webkit-transform: scale(1);
-      transform: scale(1);
-    }
-`;
+
   return (
     <Box
       background='#22223a'
@@ -39,19 +26,16 @@ const Home: NextPage = () => {
           transform: translate(-50%, -50%);
         `}
       >
-        <Box
+        <Image
+          src={contacts}
+          alt='image'
+          width={80}
+          height={80}
+          layout='fixed'
           css={css`
-            animation: ${moving} 2s ease ease-in-out;
+            animation: ${moving} 2s infinite;
           `}
-        >
-          <Image
-            src={contacts}
-            alt='image'
-            width={80}
-            height={80}
-            layout='fixed'
-          />
-        </Box>
+        />
         <Button
           marginTop='25px'
           width='150px'
@@ -69,5 +53,17 @@ const Home: NextPage = () => {
     </Box>
   );
 };
+
+const moving = keyframes`
+    0 {
+      transform: scale(0.7); 
+    }
+    50% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
+`;
 
 export default Home;
