@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import contacts from '../assets/Images/common/contacts.png';
-import { Box, Button } from '../components/Atoms';
+import { Box, Button, Span } from '../components/Atoms';
 import theme from '../styles/theme';
 
 const Home: NextPage = () => {
@@ -29,8 +29,8 @@ const Home: NextPage = () => {
         <Image
           src={contacts}
           alt='image'
-          width={80}
-          height={80}
+          width={100}
+          height={100}
           layout='fixed'
           css={css`
             animation: ${moving} 2s infinite;

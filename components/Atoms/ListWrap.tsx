@@ -20,7 +20,7 @@ import {
   BackgroundProps,
 } from 'styled-system';
 
-const List = styled.ul<
+const ListWrap = styled.ul<
   | SpaceProps
   | LayoutProps
   | ColorProps
@@ -42,4 +42,4 @@ const List = styled.ul<
   ${background}
 `;
 
-export default List;
+export default ListWrap;

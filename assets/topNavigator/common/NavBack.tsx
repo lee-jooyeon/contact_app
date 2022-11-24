@@ -11,7 +11,7 @@ export default function NavBack({
       viewBox='0 0 30 30'
       xmlns='http://www.w3.org/2000/svg'
     >
-      <path d='M19 5L9 14.9994L19 25' stroke='black'></path>
+      <path d='M19 5L9 14.9994L19 25' stroke='white'></path>
     </svg>
   );
 }
