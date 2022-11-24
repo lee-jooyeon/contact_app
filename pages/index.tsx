@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import contacts from '../assets/Images/common/contacts.png';
-import { Box, Button, Span } from '../components/Atoms';
+import { Box, Button } from '../components/Atoms';
 import theme from '../styles/theme';
 
 const Home: NextPage = () => {
