@@ -4,8 +4,15 @@ import { useEffect, useState } from 'react';
 import { Box } from '../../Atoms';
 import ContactItem from './ContactItem';
 
+export type dataType = {
+  id: number;
+  name: string;
+  group: string;
+  number: string;
+};
+
 export default function ContactList() {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<dataType[]>([]);
 
   useEffect(() => {
     const getLists = async () => {

@@ -1,21 +1,14 @@
 import { css } from '@emotion/react';
-import styled from '@emotion/styled';
 import theme from '../../../styles/theme';
 import { Box, ListWrap, List, Span } from '../../Atoms';
-
-interface data {
-  data: dataProps;
-}
+import { dataType } from './ContactList';
 
 interface dataProps {
-  id: number;
-  name: string;
-  group: string;
-  number: string;
+  data: dataType;
 }
 
-export default function ContactItem(props: data) {
-  const contactLists = props.data;
+export default function ContactItem({ data }: dataProps) {
+  const { id, name, number, group } = data;
 
   return (
     <ListWrap>
@@ -38,7 +31,7 @@ export default function ContactItem(props: data) {
           lineHeight='50px'
           fontSize='13px'
         >
-          {contactLists.name}
+          {name}
         </Span>
         <Span
           paddingLeft='15px'
@@ -48,7 +41,7 @@ export default function ContactItem(props: data) {
           flex={1}
           marginBottom='17px'
         >
-          {contactLists.number}
+          {number}
         </Span>
         <Box
           marginRight='10px'
@@ -57,9 +50,9 @@ export default function ContactItem(props: data) {
           top='45px'
           alignSelf='center'
           backgroundColor={
-            contactLists.group === 'family'
+            group === 'family'
               ? '#59d58a'
-              : contactLists.group === 'friends'
+              : group === 'friends'
               ? '#65a0d7'
               : '#d587dd'
           }
@@ -73,9 +66,9 @@ export default function ContactItem(props: data) {
             text-transform: uppercase;
           `}
         >
-          {contactLists.group}
+          {group}
         </Box>
-        {/* <Span>{contactLists.id}</Span> */}
+        {/* <Span>{id}</Span> */}
       </List>
     </ListWrap>
   );
