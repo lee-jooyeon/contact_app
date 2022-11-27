@@ -15,15 +15,17 @@ export type dataType = {
 export default function ContactList() {
   // lists Array state에 제네릭 타입을 지정해 줍니다.
   const [lists, setLists] = useState<dataType[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const getLists = async () => {
       try {
         const res = await axios.get(
           'https://my-json-server.typicode.com/lee-jooyeon/contacts/db'
         );
         setLists(res.data.lists);
-        console.log(res.data.lists);
+        setIsLoading(false);
       } catch {
         console.error;
       }
@@ -34,9 +36,9 @@ export default function ContactList() {
   return (
     <>
       <Box>
-        {lists.map(data => (
-          <ContactItem data={data} key={data.id} />
-        ))}
+        {!isLoading &&
+          lists.map(data => <ContactItem data={data} key={data.id} />)}
+        {isLoading && <Box>Loading...</Box>}
       </Box>
     </>
   );
