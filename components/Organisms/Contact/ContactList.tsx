@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import Lottie from 'react-lottie';
+import { css } from '@emotion/react';
 import { Box } from '../../Atoms';
 import ContactItem from './ContactItem';
+import Loading from '../../../public/lottie/loading.json';
 
 // 자식 컴포넌트에 넘겨주기 위해 export 정의
 export type dataType = {
@@ -38,7 +41,29 @@ export default function ContactList() {
       <Box>
         {!isLoading &&
           lists.map(data => <ContactItem data={data} key={data.id} />)}
-        {isLoading && <Box>Loading...</Box>}
+        <Box
+          position='absolute'
+          top='70%'
+          left='50%'
+          css={css`
+            transform: translate(-50%, -50%);
+          `}
+        >
+          {isLoading && (
+            <Lottie
+              options={{
+                loop: true,
+                autoplay: true,
+                animationData: Loading,
+                rendererSettings: {
+                  preserveAspectRatio: 'xMidYMid slice',
+                },
+              }}
+              height={100}
+              width='100%'
+            />
+          )}
+        </Box>
       </Box>
     </>
   );
