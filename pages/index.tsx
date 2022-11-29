@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           width='150px'
           height='50px'
           borderRadius='50px'
-          fontSize='15px'
+          fontSize='18px'
           textAlign='center'
           background='#84ffb5'
           color={theme.colors.white}
