@@ -1,13 +1,15 @@
 import { css } from '@emotion/react';
+import { useRouter } from 'next/router';
 import theme from '../../../styles/theme';
 import { Box, ListWrap, List, Span } from '../../Atoms';
 import { dataType } from './ContactList';
 
-interface dataProps {
+export interface dataProps {
   data: dataType;
 }
 
 export default function ContactItem({ data }: dataProps) {
+  const router = useRouter();
   const { id, name, number, group } = data;
 
   return (
@@ -19,6 +21,15 @@ export default function ContactItem({ data }: dataProps) {
         margin='0px 15px'
         borderBottom='1px solid #fff'
         color={theme.colors.white}
+        onClick={() =>
+          router.push(
+            {
+              pathname: `/contact/detail/${id}`,
+              query: { id: id, name: name, number: number, group: group },
+            },
+            `/contact/detail/${id}`
+          )
+        }
       >
         <Span
           color={theme.colors.black}
