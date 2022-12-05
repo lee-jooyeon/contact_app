@@ -1,14 +1,16 @@
 import { Box } from '../../Atoms';
 import { dataType } from '../Contact/ContactList';
 
-interface dataProps {
-  data: dataType;
-}
-
-export default function ContactDetail({ data }: dataProps) {
+export default function ContactDetail({
+  userDataLists,
+  id,
+}: {
+  userDataLists: dataType[];
+  id: number;
+}) {
   return (
     <>
-      <Box>{data.name}</Box>
+      <Box color='#fff'>{userDataLists[id]?.name}</Box>
     </>
   );
 }

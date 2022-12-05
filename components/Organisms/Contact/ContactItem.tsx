@@ -10,7 +10,7 @@ export interface dataProps {
 
 export default function ContactItem({ data }: dataProps) {
   const router = useRouter();
-  const { id, name, number, group } = data;
+  const { id, name, group, number } = data;
 
   return (
     <ListWrap>
@@ -22,13 +22,9 @@ export default function ContactItem({ data }: dataProps) {
         borderBottom='1px solid #fff'
         color={theme.colors.white}
         onClick={() =>
-          router.push(
-            {
-              pathname: `/contact/detail/${id}`,
-              query: { id: id, name: name, number: number, group: group },
-            },
-            `/contact/detail/${id}`
-          )
+          router.push({
+            pathname: `/contact/detail/${id}`,
+          })
         }
       >
         <Span

@@ -27,7 +27,7 @@ export default function ContactList() {
         const res = await axios.get(
           'https://my-json-server.typicode.com/lee-jooyeon/contacts/db'
         );
-        console.log(res.data.lists);
+        // console.log(res.data.lists);
         setLists(res.data.lists);
         setIsLoading(false);
       } catch {
