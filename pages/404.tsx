@@ -8,13 +8,7 @@ import theme from '../styles/theme';
 export default function Error404() {
   const router = useRouter();
   return (
-    <Box
-      display='flex'
-      background='#22223a'
-      minHeight='100vh'
-      overflow='hidden'
-      justifyContent='center'
-    >
+    <Box display='flex' justifyContent='center'>
       <ListWrap alignSelf='center' textAlign='center'>
         <List color={theme.colors.white} fontSize='70px' fontWeight={500}>
           404

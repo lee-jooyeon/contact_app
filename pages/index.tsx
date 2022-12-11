@@ -11,12 +11,7 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   return (
-    <Box
-      background='#22223a'
-      position='relative'
-      minHeight='100vh'
-      overflow='hidden'
-    >
+    <Box>
       <Box
         position='absolute'
         top='50%'

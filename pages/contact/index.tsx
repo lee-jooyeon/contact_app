@@ -4,7 +4,7 @@ import ContactList from '../../components/Organisms/Contact/ContactList';
 
 export default function Contact() {
   return (
-    <Box background='#22223a' minHeight='100vh' overflow='hidden'>
+    <Box>
       <CommonHeader />
       <ContactList />
     </Box>

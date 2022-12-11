@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 import Lottie from 'react-lottie';
 import { css } from '@emotion/react';
-import { Box } from '../../Atoms';
+import { Box, ListWrap } from '../../Atoms';
 import ContactItem from './ContactItem';
 import Loading from '../../../public/lottie/loading.json';
 
@@ -24,9 +24,7 @@ export default function ContactList() {
     setIsLoading(true);
     const getLists = async () => {
       try {
-        const res = await axios.get(
-          'https://my-json-server.typicode.com/lee-jooyeon/contacts/db'
-        );
+        const res = await axios.get('http://localhost:3000/api/detail');
         // console.log(res.data.lists);
         setLists(res.data.lists);
         setIsLoading(false);
@@ -38,7 +36,7 @@ export default function ContactList() {
   }, []);
 
   return (
-    <>
+    <ListWrap>
       <Box>
         {!isLoading &&
           lists.map(data => <ContactItem data={data} key={data.id} />)}
@@ -66,6 +64,6 @@ export default function ContactList() {
           )}
         </Box>
       </Box>
-    </>
+    </ListWrap>
   );
 }
