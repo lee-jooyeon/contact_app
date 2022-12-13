@@ -1,21 +1,24 @@
+import { GetServerSidePropsContext } from 'next';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import NavBack from '../../../../assets/topNavigator/common/NavBack';
-import { Box, Span } from '../../../../components/Atoms';
+import { Box, List, ListWrap, Span } from '../../../../components/Atoms';
+import ImageItem from '../../../../components/Molecules/ImgLists/ImageItem';
 import { dataType } from '../../../../components/Organisms/Contact/ContactList';
-import ContactDetail from '../../../../components/Organisms/Detail/ContactDetail';
+import theme from '../../../../styles/theme';
 import Error404 from '../../../404';
+import { SP } from 'next/dist/shared/lib/utils';
 
 export interface UserProps {
-  userDataLists: dataType;
+  userDataLists: dataType[];
+  id: number;
 }
 
-export default function Detail({ userDataLists }: UserProps) {
+export default function Detail({ userDataLists, id }: UserProps) {
   const router = useRouter();
   // const { id } = router.query;
   // const userId = Number(router?.query?.id) - 1;
   // const [userDataLists, setUserDataLists] = useState<dataType[]>([]);
-  console.log(userDataLists);
 
   // const getNewList = async (post: dataType) => {
   //   const { data } = await axios({
@@ -36,69 +39,55 @@ export default function Detail({ userDataLists }: UserProps) {
       <Span onClick={() => router.back()}>
         <NavBack />
       </Span>
-      {/* {userDataLists[userId] !== undefined ? (
-        <ContactDetail userDataLists={userDataLists} id={userId} />
+      {/* {id !== undefined ? (
+        <ListWrap>
+          <List color={theme.colors.white}>
+            <Box textAlign='center'>
+              <ImageItem url={userDataLists[id].url} />
+            </Box>
+            <Span>{userDataLists[id].name}</Span>
+            <Span>{userDataLists[id].group}</Span>
+            <Span>{userDataLists[id].number}</Span>
+          </List>
+        </ListWrap>
       ) : (
         <Error404 />
       )} */}
+      {userDataLists.map(lists => (
+        <ListWrap>
+          <List color={theme.colors.white}>
+            <Span>{lists.name}</Span>
+            {/* <Box textAlign='center'>
+              <ImageItem url={lists[id].url} />
+            </Box>
+            <Span>{lists[id].name}</Span>
+            <Span>{lists[id].group}</Span>
+            <Span>{lists[id].number}</Span> */}
+          </List>
+        </ListWrap>
+      ))}
     </Box>
   );
 }
 
 // getServerSideProps가 반환하는 데이터를 사용하여 페이지를 사전 렌더링 하려면
-export const getServerSideProps = async (context: any) => {
-  const { userId } = context.query;
+export const getServerSideProps = async (
+  context: GetServerSidePropsContext
+) => {
+  const id = Number(context.params?.id) - 1;
+  const URL = `http://localhost:3000/api/detail/${id}`;
+  const res = await axios.get(URL);
+  console.log('context:', context);
+  console.log('id:', typeof id);
+
   try {
-    const res = await axios.get('http://localhost:3000/api/detail');
-    if (res.status === 200) {
-      const userDataLists = res.data.lists;
-      return {
-        props: {
-          userDataLists: {
-            id: userId,
-            name: userDataLists.name,
-            group: userDataLists.group,
-            number: userDataLists.number,
-          },
-        },
-      };
-    }
-    return { props: {} };
+    return {
+      props: {
+        id,
+        userDataLists: res.data.lists,
+      },
+    };
   } catch (error) {
     console.log(error);
-    return { props: {} };
   }
 };
-
-// export const useUserProps: GetServerSideProps<UserProps> = async (context) ={'>'} {
-//   const { cookies } = context.req;
-//   const { kilometer_session } = cookies;
-
-//   const user: User = makeAnnonymousUser();
-
-//   if (kilometer_session) {
-//     try {
-//       const axios = customAxios();
-//       const { data } = (await axios({
-//         url: '/api/user/me',
-//         method: 'GET',
-//         headers: {
-//           Authorization: kilometer_session,
-//         },
-//       })) as AxiosResponse<TGetUserResponse>;
-
-//       user.id = data.id;
-//       user.name = data.name;
-//       user.email = data.email;
-//       user.imageUrl = data.imageUrl;
-//       user.gender = data.gender;
-//       user.birthdate = moment(data.birthdate).format('YYYY-MM-DD');
-//       user.phoneNumber = data.phoneNumber;
-//       user.isLogin = true;
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   }
-
-//   return { props: { user } };
-// };

@@ -13,6 +13,7 @@ export type dataType = {
   name: string;
   group: string;
   number: string;
+  url: string | null;
 };
 
 export default function ContactList() {
@@ -24,7 +25,7 @@ export default function ContactList() {
     setIsLoading(true);
     const getLists = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/api/detail');
+        const res = await axios.get('http://localhost:3000/api/detail/id');
         // console.log(res.data.lists);
         setLists(res.data.lists);
         setIsLoading(false);
