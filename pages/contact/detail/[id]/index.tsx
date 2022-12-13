@@ -39,7 +39,7 @@ export default function Detail({ userDataLists, id }: UserProps) {
       <Span onClick={() => router.back()}>
         <NavBack />
       </Span>
-      {/* {id !== undefined ? (
+      {userDataLists[id] !== undefined ? (
         <ListWrap>
           <List color={theme.colors.white}>
             <Box textAlign='center'>
@@ -52,7 +52,7 @@ export default function Detail({ userDataLists, id }: UserProps) {
         </ListWrap>
       ) : (
         <Error404 />
-      )} */}
+      )}
       {userDataLists.map(lists => (
         <ListWrap>
           <List color={theme.colors.white}>
