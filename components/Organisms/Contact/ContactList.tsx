@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 
 import Lottie from 'react-lottie';
 import { css } from '@emotion/react';
-import { Box, ListWrap } from '../../Atoms';
-import ContactItem from './ContactItem';
-import Loading from '../../../public/lottie/loading.json';
+import { Box, ListWrap } from 'components/Atoms';
+
+import Loading from 'public/lottie/loading.json';
+import ContactItem from 'components/Organisms/Contact/ContactItem';
 
 // 자식 컴포넌트에 넘겨주기 위해 export 정의
 export type dataType = {
@@ -40,11 +41,11 @@ export default function ContactList() {
     <ListWrap>
       <Box>
         {!isLoading &&
-          lists.map(data => <ContactItem data={data} key={data.id} />)}
+          lists.map((data) => <ContactItem data={data} key={data.id} />)}
         <Box
-          position='absolute'
-          top='70%'
-          left='50%'
+          position="absolute"
+          top="70%"
+          left="50%"
           css={css`
             transform: translate(-50%, -50%);
           `}
@@ -60,7 +61,7 @@ export default function ContactList() {
                 },
               }}
               height={100}
-              width='100%'
+              width="100%"
             />
           )}
         </Box>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { css } from '@emotion/react';
-import { Box } from '../../Atoms';
+import { Box } from 'components/Atoms';
 
 interface urlProps {
   url: string | null;
@@ -14,13 +14,13 @@ export default function ImageItem(props: urlProps) {
       : '';
 
   return (
-    <Box marginBottom='10px'>
+    <Box marginBottom="10px">
       <Image
         src={`${prefix}/images/lists/${url}`}
-        alt='image'
-        width={120}
-        height={120}
-        layout='fixed'
+        alt="image"
+        width={100}
+        height={100}
+        layout="fixed"
         css={css`
           border-radius: 50%;
         `}

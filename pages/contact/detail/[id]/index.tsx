@@ -1,13 +1,12 @@
 import { GetServerSidePropsContext } from 'next';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import NavBack from '../../../../assets/topNavigator/common/NavBack';
-import { Box, List, ListWrap, Span } from '../../../../components/Atoms';
-import ImageItem from '../../../../components/Molecules/ImgLists/ImageItem';
-import { dataType } from '../../../../components/Organisms/Contact/ContactList';
-import theme from '../../../../styles/theme';
-import Error404 from '../../../404';
-import { SP } from 'next/dist/shared/lib/utils';
+import NavBack from 'assets/topNavigator/common/NavBack';
+import { Box, List, ListWrap, Span } from 'components/Atoms';
+import ImageItem from 'components/Molecules/ImgLists/ImageItem';
+import { dataType } from 'components/Organisms/Contact/ContactList';
+import theme from 'styles/theme';
+import Error404 from 'pages/404';
 
 export interface UserProps {
   userDataLists: dataType[];
@@ -35,14 +34,14 @@ export default function Detail({ userDataLists, id }: UserProps) {
   // };
 
   return (
-    <Box padding='15px 10px'>
+    <Box padding="15px 10px">
       <Span onClick={() => router.back()}>
         <NavBack />
       </Span>
       {userDataLists[id] !== undefined ? (
         <ListWrap>
           <List color={theme.colors.white}>
-            <Box textAlign='center'>
+            <Box textAlign="center">
               <ImageItem url={userDataLists[id].url} />
             </Box>
             <Span>{userDataLists[id].name}</Span>
@@ -53,26 +52,13 @@ export default function Detail({ userDataLists, id }: UserProps) {
       ) : (
         <Error404 />
       )}
-      {userDataLists.map(lists => (
-        <ListWrap>
-          <List color={theme.colors.white}>
-            <Span>{lists.name}</Span>
-            {/* <Box textAlign='center'>
-              <ImageItem url={lists[id].url} />
-            </Box>
-            <Span>{lists[id].name}</Span>
-            <Span>{lists[id].group}</Span>
-            <Span>{lists[id].number}</Span> */}
-          </List>
-        </ListWrap>
-      ))}
     </Box>
   );
 }
 
 // getServerSideProps가 반환하는 데이터를 사용하여 페이지를 사전 렌더링 하려면
 export const getServerSideProps = async (
-  context: GetServerSidePropsContext
+  context: GetServerSidePropsContext,
 ) => {
   const id = Number(context.params?.id) - 1;
   const URL = `http://localhost:3000/api/detail/${id}`;

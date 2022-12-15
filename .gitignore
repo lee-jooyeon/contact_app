@@ -6,12 +6,10 @@
 .pnp.js
 
 # testing
-test/
 /coverage
 
 # next.js
 /.next/
-/out/
 
 # production
 /build
