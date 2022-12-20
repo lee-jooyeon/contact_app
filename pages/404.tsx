@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
-
 import Lottie from 'react-lottie';
+
 import { Box, Button, List, ListWrap, Span } from 'components/Atoms';
 import ErrorDog from 'public/lottie/error-doggy.json';
 import theme from 'styles/theme';
@@ -33,7 +33,7 @@ export default function Error404() {
             Page Not Found
           </Span>
           <Span display="block" fontSize="15px" lineHeight="20px">
-            The page you were looking for doesn't exist anymore.
+            The page you were looking for does not exist anymore.
           </Span>
         </List>
         <Button

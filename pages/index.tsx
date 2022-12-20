@@ -1,7 +1,7 @@
 import { css, keyframes } from '@emotion/react';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 import contacts from 'assets/Images/common/contacts.png';
 import { Box, Button } from 'components/Atoms';

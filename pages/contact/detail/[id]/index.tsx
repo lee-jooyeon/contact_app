@@ -1,12 +1,13 @@
-import { GetServerSidePropsContext } from 'next';
 import axios from 'axios';
+import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+
 import NavBack from 'assets/topNavigator/common/NavBack';
 import { Box, List, ListWrap, Span } from 'components/Atoms';
 import ImageItem from 'components/Molecules/ImgLists/ImageItem';
 import { dataType } from 'components/Organisms/Contact/ContactList';
-import theme from 'styles/theme';
 import Error404 from 'pages/404';
+import theme from 'styles/theme';
 
 export interface UserProps {
   userDataLists: dataType[];

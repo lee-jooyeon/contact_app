@@ -1,7 +1,9 @@
 import { css } from '@emotion/react';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+
 import { Box, List, Span } from 'components/Atoms';
 import { dataType } from 'components/Organisms/Contact/ContactList';
-import { useRouter } from 'next/router';
 import theme from 'styles/theme';
 
 export interface dataProps {
@@ -20,11 +22,13 @@ export default function ContactItem({ data }: dataProps) {
       margin="0px 15px"
       borderBottom="1px solid #fff"
       color={theme.colors.white}
-      onClick={() =>
+      onClick={() => {
+        localStorage.setItem('booksKey', JSON.stringify(id)); // id 값을 -> JSON 형태로 object(객체)를 서버에 보내기 전에 JSON으로 변환
+        localStorage.setItem('scrollKey', `${window.scrollY}`);
         router.push({
           pathname: `/contact/detail/${id}`,
-        })
-      }
+        });
+      }}
     >
       <Span
         color={theme.colors.black}
