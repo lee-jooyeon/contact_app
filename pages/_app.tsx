@@ -9,16 +9,19 @@ import { Suspense } from 'react';
 
 import 'styles/index.css';
 import Container from 'components/Organisms/Container';
+import { RecoilRoot } from 'recoil';
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Suspense fallback="..Loading">
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      </Suspense>
+      <RecoilRoot>
+        <GlobalStyles />
+        <Suspense fallback="..Loading">
+          <Container>
+            <Component {...pageProps} />
+          </Container>
+        </Suspense>
+      </RecoilRoot>
     </ThemeProvider>
   );
 }

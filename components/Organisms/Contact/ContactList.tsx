@@ -1,12 +1,13 @@
 import { css } from '@emotion/react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
+import { useRecoilValue } from 'recoil';
 
 import { Box, ListWrap } from 'components/Atoms';
 import ContactItem from 'components/Organisms/Contact/ContactItem';
 import Loading from 'public/lottie/loading.json';
+import { renderState } from 'states/renderState';
 
 // 자식 컴포넌트에 넘겨주기 위해 export 정의
 export type dataType = {
@@ -22,29 +23,29 @@ export default function ContactList() {
   const [lists, setLists] = useState<dataType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const setRenderState = useRecoilValue(renderState);
+
   useEffect(() => {
     setIsLoading(true);
-    const booksKey = JSON.parse(localStorage.getItem('booksKey')); //  오브젝트 서버로부터 JSON을 받는다면 parse을 이용해서 JSON 문자열을 object 객체로 변환한다.
-    if (booksKey !== null && booksKey.length > 0) {
-      setLists(booksKey);
-    } else {
-      const getLists = async () => {
-        try {
-          const res = await axios.get('http://localhost:3000/api/detail/id');
-          // console.log(res.data.lists);
-          setLists(res.data.lists);
-          setIsLoading(false);
-        } catch {
-          console.error;
-        }
-      };
-      getLists();
-    }
+    const getLists = async () => {
+      try {
+        const res = await axios.get('http://localhost:3000/api/detail/id');
+        // console.log(res.data.lists);
+        setLists(res.data.lists);
+        setIsLoading(false);
+      } catch {
+        console.error;
+      }
+    };
+    getLists();
   }, []);
 
   useEffect(() => {
-    const scroll = parseInt(localStorage.getItem('scrollKey'));
-    window.scrollTo(0, scroll);
+    const scroll = sessionStorage.getItem('scrollKey') || '{}';
+    if (setRenderState === true) {
+      const scrollKey: number = parseInt(scroll);
+      window.scrollTo(0, scrollKey);
+    }
   }, [lists]);
 
   return (
