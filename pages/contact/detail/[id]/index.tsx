@@ -141,7 +141,6 @@ export default function Detail({ userDataLists, id }: UserProps) {
   );
 }
 
-//test
 // getServerSideProps가 반환하는 데이터를 사용하여 페이지를 사전 렌더링 하려면
 export const getServerSideProps = async (
   context: GetServerSidePropsContext,
