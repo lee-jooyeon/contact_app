@@ -26,7 +26,7 @@ export default function CommonHeader() {
         >
           Contacts
         </Box>
-        <Span>
+        <Span onClick={() => router.push('/contact/new/')}>
           <NavPlus />
         </Span>
       </FlexBox>

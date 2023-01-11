@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import axios from 'axios';
 import useAxios from 'util/hooks/useAxios';
 import { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
