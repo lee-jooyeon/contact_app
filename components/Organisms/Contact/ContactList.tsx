@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import axios from 'axios';
+import useAxios from 'util/hooks/useAxios';
 import { useEffect, useState } from 'react';
 import Lottie from 'react-lottie';
 import { useRecoilValue } from 'recoil';
@@ -20,25 +21,26 @@ export type dataType = {
 
 export default function ContactList() {
   // lists Array state에 제네릭 타입을 지정해 줍니다.
-  const [lists, setLists] = useState<dataType[]>([]);
+  // const [lists, setLists] = useState<dataType[]>([]);
+  const lists = useAxios('http://localhost:3000/api/detail/id');
   const [isLoading, setIsLoading] = useState(false);
 
   const setRenderState = useRecoilValue(renderState);
 
-  useEffect(() => {
-    setIsLoading(true);
-    const getLists = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/api/detail/id');
-        // console.log(res.data.lists);
-        setLists(res.data.lists);
-        setIsLoading(false);
-      } catch {
-        console.error;
-      }
-    };
-    getLists();
-  }, []);
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   const getLists = async () => {
+  //     try {
+  //       const res = await axios.get('http://localhost:3000/api/detail/id');
+  //       // console.log(res.data.lists);
+  //       setLists(res.data.lists);
+  //       setIsLoading(false);
+  //     } catch {
+  //       console.error;
+  //     }
+  //   };
+  //   getLists();
+  // }, []);
 
   useEffect(() => {
     const scroll = sessionStorage.getItem('scrollKey') || '{}';
