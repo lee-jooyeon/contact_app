@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -15,6 +14,7 @@ import { dataType } from 'components/Organisms/Contact/ContactList';
 import Error404 from 'pages/404';
 import { renderState } from 'states/renderState';
 import theme from 'styles/theme';
+import { MongoClient } from 'mongodb';
 
 export interface UserProps {
   userDataLists: dataType[];
@@ -41,23 +41,6 @@ const List = styled('li')`
 export default function Detail({ userDataLists, id }: UserProps) {
   const router = useRouter();
   const isBackState = useSetRecoilState(renderState);
-  // const { id } = router.query;
-  // const userId = Number(router?.query?.id) - 1;
-  // const [userDataLists, setUserDataLists] = useState<dataType[]>([]);
-
-  // const getNewList = async (post: dataType) => {
-  //   const { data } = await axios({
-  //     url: 'https://my-json-server.typicode.com/lee-jooyeon/contacts/db',
-  //     method: 'POST',
-  //     data: {
-  //       id: post.id,
-  //       name: post.name,
-  //       group: post.group,
-  //       number: post.number,
-  //     },
-  //   });
-  //   return data;
-  // };
 
   return (
     <Box padding="15px 10px">
@@ -145,17 +128,30 @@ export default function Detail({ userDataLists, id }: UserProps) {
 export const getServerSideProps = async (
   context: GetServerSidePropsContext,
 ) => {
-  const id = Number(context.params?.id) - 1;
-  const URL = `http://localhost:3000/api/detail/${id}`;
-  const res = await axios.get(URL);
-  console.log('context:', context);
-  console.log('id:', typeof id);
+  const client = await MongoClient.connect(
+    'mongodb+srv://jooyeon:infinite1986@cluster0.awatltw.mongodb.net/contacts?retryWrites=true&w=majority',
+  );
+  const db = client.db();
+  const contactsCollection = db.collection('contacts');
+  const contacts = await contactsCollection.find().toArray();
+
+  client.close();
+  // const id = Number(context.params?.id) - 1;
+  // const URL = `api/lists/${id}`;
+  // const res = await axios.get(URL);
+  // console.log('context:', context);
+  // console.log('id:', typeof id);
 
   try {
     return {
       props: {
-        id,
-        userDataLists: res.data.lists,
+        userDataLists: contacts.map((conts) => ({
+          id: conts._id.toString(),
+          name: conts.name,
+          group: conts.group,
+          number: conts.number,
+          url: conts.url,
+        })),
       },
     };
   } catch (error) {

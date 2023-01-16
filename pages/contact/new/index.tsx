@@ -1,11 +1,54 @@
+import axios from 'axios';
 import { Box, Button } from 'components/Atoms';
-import useAxios from 'util/hooks/useAxios';
+import { useRouter } from 'next/router';
+import { useRef } from 'react';
 
 export default function NewContact() {
-  const contacts = useAxios('http://localhost:3000/api/detail/id');
+  const router = useRouter();
+  const nameRef = useRef();
+  const groupRef = useRef();
+  const numberRef = useRef();
+  const imageRef = useRef();
 
-  const onSubmitHandler = (e: any) => {
+  const onSubmitHandler = async (e: any) => {
     e.preventDefault();
+    const newName = nameRef.current.value;
+    const newGroup = groupRef.current.value;
+    const newNumber = numberRef.current.value;
+    const newImage = imageRef.current.value;
+
+    // const contactData = {
+    //   name: newName,
+    //   group: newGroup,
+    //   number: newNumber,
+    //   url: newImage,
+    // };
+
+    // const response = await fetch('/api/contacts', {
+    //   method: 'POST',
+    //   body: JSON.stringify(contactData),
+    //   headers: {
+    //     'Content-type': 'application/json',
+    //   },
+    // });
+    // const data = await response.json();
+
+    const { data } = await axios({
+      url: '/api/contacts',
+      method: 'POST',
+      data: {
+        name: newName,
+        group: newGroup,
+        number: newNumber,
+        url: newImage,
+      },
+      headers: {
+        'Content-type': 'application/json',
+      },
+    });
+    console.log(data);
+
+    router.push('/contact/new');
   };
 
   return (
@@ -13,15 +56,19 @@ export default function NewContact() {
       <form action="submit">
         <Box>
           <label htmlFor="name">Name</label>
-          <input id="name" type="text" />
+          <input id="name" type="text" ref={nameRef} />
         </Box>
         <Box>
           <label htmlFor="group">Group</label>
-          <input id="group" type="text" />
+          <input id="group" type="text" ref={groupRef} />
         </Box>
         <Box>
           <label htmlFor="number">Number</label>
-          <input id="number" type="text" />
+          <input id="number" type="text" ref={numberRef} />
+        </Box>
+        <Box>
+          <label htmlFor="image">image</label>
+          <input id="image" type="url" ref={imageRef} />
         </Box>
       </form>
       <Button onClick={onSubmitHandler}>확인</Button>
